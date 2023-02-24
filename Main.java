@@ -1,42 +1,70 @@
 
-package laboratorio2_1;
+package laboratorio2_2;
 
 import java.util.Scanner;
-import java.util.Random;
 
 public class Main {
+    
     public static void main(String[] args) {
+        
         Scanner sc = new Scanner(System.in);
-        Random random = new Random();
-        
-        System.out.print("Ingrese la longitud del arreglo: ");
-        int longitud = sc.nextInt();
-        int[] arreglo = new int[longitud];
-        
-        for (int i = 0; i < arreglo.length; i++) {
-            arreglo[i] = random.nextInt(100); // Números aleatorios entre 0 y 99
+        System.out.print("Introduce una cadena de texto: ");
+        String input = sc.nextLine().toLowerCase();
+        char[] caracteres = input.toCharArray();
+        char caracterMasRepetido = ' ';
+        int cantidadMasRepetido = 0;
+
+        for (char c : caracteres) {
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                int cantidad = contarCaracter(input, obtenerCaracterMasRepetido(input));
+                if (cantidad > cantidadMasRepetido) {
+                    caracterMasRepetido = obtenerCaracterMasRepetido(input);
+                    cantidadMasRepetido = cantidad;
+                }
+                c = caracterMasRepetido;
+            }
+            System.out.print(c);
         }
-        
-        
-        System.out.println("Arreglo generado con números aleatorios: ");
-        for (int i = 0; i < arreglo.length; i++) {
-            System.out.print(arreglo[i] + " ");
-        }
-        System.out.println("\n");
-        
-        
-        MediayMediana obj1 = new MediayMediana();// envia parametros al constructor(?)
-        obj1.media(arreglo); //el obj de clase MediayMediana llama el metodo media de esa clase
-        obj1.mediana(arreglo);
-        
-        Varianza obj2 = new Varianza();// crea obj de varianza constructor(?)
-        obj2.varianza(arreglo);
-        
-        Desviacion_Estandar obj3 = new Desviacion_Estandar();// crea obj de varianza constructor(?)
-        obj3.Desviacion_Estandar(arreglo);
-        
-        Moda obj4 = new Moda();// crea obj de varianza constructor(?)
-        obj4.moda(arreglo);
-        
+        System.out.println("\nCaracter más repetido: " + caracterMasRepetido + " (" + cantidadMasRepetido + " veces)");
+        reversarpalabra(input);
     }
+
+    public static char obtenerCaracterMasRepetido(String input) {
+        char[] caracteres = input.toCharArray();
+        char caracterMasRepetido = ' ';
+        int cantidadMasRepetido = 0;
+
+        for (char c : caracteres) {
+            int cantidad = contarCaracter(input, c);
+            if (cantidad > cantidadMasRepetido) {
+                caracterMasRepetido = c;
+                cantidadMasRepetido = cantidad;
+            }
+        }
+        return caracterMasRepetido;
+    }
+
+    public static int contarCaracter(String input, char c) {
+        int count = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public static void reversarpalabra(String input){
+        
+        String nstr="";
+		char ch;
+        
+    for (int i=0; i<input.length();i++)
+	{
+		ch= input.charAt(i);
+		nstr= ch+nstr; 
+	}
+	System.out.println("Palabra Invertida: "+ nstr);
+	} 
+    
 }
